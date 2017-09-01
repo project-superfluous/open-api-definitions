@@ -1,0 +1,60 @@
+openapi: "3.0"
+info:
+  title: PaymentService
+  description: This is a sample of a payment service
+  termsOfService: http://example.com/terms/
+  contact:
+    name: API Support
+    url: http://www.example.com/support
+    email: support@example.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.1
+servers: []
+paths:
+  /pay:
+    get:
+      descriptions:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/'
+    post:
+      descriptions:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: 'http://pending.schema.org/MoneyTransfer'
+
+
+components:
+  schemas:
+    ErrorModel:
+      type: object
+      required:
+      - message
+      - code
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+          minimum: 100
+          maximum: 600
+    ExtendedErrorModel:
+      allOf:
+      - $ref: '#/components/schemas/ErrorModel'
+      - type: object
+        required:
+        - rootCause
+        properties:
+          rootCause:
+            type: string
+security:
+tags:
+externalDocs:
